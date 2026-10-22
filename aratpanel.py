@@ -206,7 +206,7 @@ class H(http.server.BaseHTTPRequestHandler):
             if checkpw(form.get('pw', [''])[0]):
                 tok = base64.b64encode(os.urandom(24)).decode()
                 sessions[tok] = time.time()
-                self._hdr(303); self.send_header('Set-Cookie', f't={tok}; Path=/'); self.send_header('Location', '/'); self.end_headers()
+                self.send_response(303); self.send_header('Set-Cookie', f't={tok}; Path=/'); self.send_header('Location', '/'); self.end_headers()
             else:
                 self._page(LOGIN_PAGE.replace('{err}', 'پسورد غلطه'))
             return
